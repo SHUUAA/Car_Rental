@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #444;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        /* Form specific styles */
+        form {
+            max-width: 600px;
+            margin: 20px auto; /* Added margin to center the form */
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Three equal-width columns */
+            grid-gap: 10px; /* Gap between the columns */
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        form input[type="text"],
+        form input[type="password"],
+        form input[type="email"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        form input[type="submit"] {
+            grid-column: span 3; /* Make the submit button span all three columns */
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <h1>Car Rental System</h1>
+    </header>
+    <nav>
+        <a href="/cars/AddDiscount">Add Discount</a>
+        <a href="/cars/AddCar">Add Car</a>
+        <a href="/cars/displayCar">View Cars</a>
+        <a href="/cars/displayDiscount">View Discounts</a>
+        <a href="/cars/editProfileCarOwner">Edit Profile</a>
+        <a href="/cars/logoff">Log out</a>
+    </nav>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" name="btnUpdate" value="Update">
+        <input type="submit" name="btnDelete" onclick="return confirm('Are you sure you want to delete your profile?');" value="Delete">
+    </form>
+</body>
+</html>

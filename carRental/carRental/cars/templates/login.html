@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+/* login.html CSS */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+pre {
+    text-align: center;
+}
+
+form {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+form input[type="text"],
+form input[type="password"] {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Added box-sizing to include padding and border within width */
+}
+
+form input[type="submit"] {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+form a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #4CAF50;
+}
+
+form a:hover {
+    color: #45a049;
+}
+
+b {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: red;
+}
+
+    </style>
+</head>
+<body>
+    <pre>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="txtUsername" placeholder="Username">
+        <input type="password" name="txtPassword" placeholder="Password">
+        <input type="submit" name="btnLogin" value="Login"> <a href="/cars/registerCarOwner">Register</a>
+        {% if error != "" %}
+            <b>{{error}}</b>
+        {% endif %}
+    </form>
+    </pre>
+</body>
+</html>

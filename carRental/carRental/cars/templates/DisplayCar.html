@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+nav {
+    background-color: #444;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+nav a:hover {
+    background-color: #555;
+}
+
+    body {
+    font-family: Arial, sans-serif;
+}
+
+pre {
+    text-align: center;
+}
+
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px; /* Add a maximum width for the table */
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: center; /* Center the content inside cells */
+}
+
+th {
+    background-color: #f2f2f2; /* Light gray background for table header */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternate row background color */
+}
+    </style>
+</head>
+<body>
+<header>
+        <h1>Car Rental System</h1>
+    </header>
+    <nav>
+        <a href="/cars/AddDiscount">Add Discount</a>
+        <a href="/cars/AddCar">Add Car</a>
+        <a href="/cars/displayCar">View Cars</a>
+        <a href="/cars/displayDiscount">View Discounts</a>
+        <a href="/cars/editProfileCarOwner">Edit Profile</a>
+        <a href="/cars/logoff">Log out</a>
+    </nav>
+    <table border="1">
+        <tr>
+            <td>Car ID</td>
+            <td>Car Brand</td>
+            <td>Car Type</td>
+            <td>License Plate</td>
+        </tr>
+        {% for c in cars %}
+            <tr>
+                <td>{{c.Car_ID}}</td>
+                <td>{{c.car_Brand}}</td>
+                <td>{{c.car_Type}}</td>
+                <td>{{c.license_Plate}}</td>
+            </tr>
+        {% endfor %}
+        {{error}}
+    </table>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    /* style.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+nav {
+    background-color: #444;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+nav a:hover {
+    background-color: #555;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+nav {
+    background-color: #444;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+nav a:hover {
+    background-color: #555;
+}
+
+form {
+    max-width: 400px;
+    margin: 40px auto; /* Add more margin to center the form */
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff; /* Add a white background color for the form */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="email"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 10px; /* Add some space between the form fields */
+}
+
+form input[type="submit"] {
+    margin-top: 20px; /* Add more margin at the top of the submit button */
+    padding: 12px; /* Increase the padding for a bigger button */
+    background-color: #007BFF; /* Change the button color to blue */
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+
+    </style>
+</head>
+<body>
+<header>
+        <h1>Car Rental System</h1>
+    </header>
+    <nav>
+        <a href="/cars/AddDiscount">Add Discount</a>
+        <a href="/cars/AddCar">Add Car</a>
+        <a href="/cars/displayCar">View Cars</a>
+        <a href="/cars/displayDiscount">View Discounts</a>
+        <a href="/cars/editProfileCarOwner">Edit Profile</a>
+        <a href="/cars/logoff">Log out</a>
+    </nav>
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" name="btnAdd" value="Add">
+</form>
+
+</body>
+</html>
