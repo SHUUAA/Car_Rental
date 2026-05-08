@@ -1,0 +1,49 @@
+:root {
+  --accent: #ffc107;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: #f7f7f9;
+}
+
+.hero {
+  background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  top: -40%; right: -10%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(255,193,7,.18), transparent 70%);
+  pointer-events: none;
+}
+
+.car-thumb {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card {
+  border: none;
+  border-radius: .75rem;
+}
+
+.card-img-top {
+  border-top-left-radius: .75rem;
+  border-top-right-radius: .75rem;
+}
+
+.btn-warning {
+  font-weight: 600;
+}
+
+.navbar-brand i {
+  font-size: 1.4rem;
+}
+
+.table > :not(caption) > * > * {
+  background-color: transparent;
+}

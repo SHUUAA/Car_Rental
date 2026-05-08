@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero text-white text-center py-5">
+  <div class="container py-5">
+    <h1 class="display-4 fw-bold mb-3">Drive away in minutes.</h1>
+    <p class="lead mb-4">Browse cars from local owners. Book the dates that work. Skip the rental counter.</p>
+    <form action="{% url 'cars:list' %}" method="get" class="row g-2 justify-content-center">
+      <div class="col-md-6">
+        <input class="form-control form-control-lg" name="q" placeholder="Search by brand or model">
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-warning btn-lg"><i class="bi bi-search"></i> Search</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Featured cars</h2>
+    <a href="{% url 'cars:list' %}" class="btn btn-outline-dark">View all</a>
+  </div>
+  <div class="row g-4">
+    {% for car in featured %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          {% if car.image %}
+            <img src="{{ car.image }}" class="card-img-top car-thumb" alt="{{ car.display_name }}">
+          {% else %}
+            <div class="car-thumb bg-light d-flex align-items-center justify-content-center text-muted">
+              <i class="bi bi-car-front" style="font-size:3rem"></i>
+            </div>
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title mb-1">{{ car.display_name }}</h5>
+            <div class="text-muted small mb-2">{{ car.year }} · {{ car.get_car_type_display }} · {{ car.get_transmission_display }}</div>
+            <div class="fw-bold">${{ car.daily_rate }}<span class="text-muted small">/day</span></div>
+          </div>
+          <div class="card-footer bg-white">
+            <a href="{% url 'cars:detail' car.pk %}" class="btn btn-dark w-100">View</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12 text-center text-muted py-5">
+        <i class="bi bi-car-front" style="font-size:3rem"></i>
+        <p class="mt-2">No cars listed yet. Be the first — <a href="{% url 'register' %}">become an owner</a>.</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="bg-light py-5">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-4">
+        <i class="bi bi-search text-warning" style="font-size:2rem"></i>
+        <h5 class="mt-2">1. Find</h5>
+        <p class="text-muted">Filter by type, transmission, and price.</p>
+      </div>
+      <div class="col-md-4">
+        <i class="bi bi-calendar-check text-warning" style="font-size:2rem"></i>
+        <h5 class="mt-2">2. Book</h5>
+        <p class="text-muted">Pick your dates and apply a discount code.</p>
+      </div>
+      <div class="col-md-4">
+        <i class="bi bi-key text-warning" style="font-size:2rem"></i>
+        <h5 class="mt-2">3. Drive</h5>
+        <p class="text-muted">Pay, pick up, and you're on the road.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2 class="mb-4">Discount codes</h2>
+
+  <div class="row g-4">
+    <div class="col-lg-5">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5>Create a code</h5>
+          <form method="post" novalidate>
+            {% csrf_token %}
+            {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+            <div class="mb-3">
+              <label class="form-label">Code</label>
+              {{ form.code }} {{ form.code.errors }}
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Percentage (1-100)</label>
+              {{ form.percentage }} {{ form.percentage.errors }}
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Valid from</label>
+                {{ form.valid_from }} {{ form.valid_from.errors }}
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Valid until</label>
+                {{ form.valid_until }} {{ form.valid_until.errors }}
+              </div>
+            </div>
+            <button class="btn btn-warning w-100">Create</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-7">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5>Existing codes</h5>
+          {% if discounts %}
+            <table class="table mb-0">
+              <thead><tr><th>Code</th><th>%</th><th>From</th><th>Until</th></tr></thead>
+              <tbody>
+                {% for d in discounts %}
+                  <tr><td><code>{{ d.code }}</code></td><td>{{ d.percentage }}%</td>
+                      <td>{{ d.valid_from }}</td><td>{{ d.valid_until }}</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          {% else %}
+            <p class="text-muted mb-0">No codes yet.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('form input[type=text], form input[type=number], form input[type=date]')
+    .forEach(el => el.classList.add('form-control'));
+</script>
+{% endblock %}

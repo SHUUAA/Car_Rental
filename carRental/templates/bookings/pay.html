@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="max-width:560px">
+  <h2 class="mb-4">Payment</h2>
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h5 class="mb-2">{{ booking.car.display_name }}</h5>
+      <div class="text-muted small">{{ booking.start_date }} → {{ booking.end_date }} · {{ booking.days }} days</div>
+      <hr>
+      <div class="d-flex justify-content-between">
+        <span>Total</span><strong class="fs-4">${{ booking.total_cost }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">Payment method</label>
+      {{ form.method }}
+    </div>
+    <button class="btn btn-warning btn-lg w-100">Pay ${{ booking.total_cost }}</button>
+    <p class="text-muted small text-center mt-3 mb-0">This is a demo — no real charge is made.</p>
+  </form>
+</div>
+
+<script>
+  document.querySelectorAll('form select').forEach(el => el.classList.add('form-select'));
+</script>
+{% endblock %}

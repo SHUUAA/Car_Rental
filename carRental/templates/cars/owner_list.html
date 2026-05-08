@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">My listings</h2>
+    <a class="btn btn-warning" href="{% url 'cars:owner_car_new' %}"><i class="bi bi-plus-lg"></i> Add car</a>
+  </div>
+
+  {% if cars %}
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Car</th>
+            <th>Plate</th>
+            <th>Type</th>
+            <th>Rate</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for car in cars %}
+            <tr>
+              <td style="width:80px">
+                {% if car.image %}
+                  <img src="{{ car.image }}" class="rounded" style="width:64px;height:48px;object-fit:cover">
+                {% else %}
+                  <div class="rounded bg-light d-flex align-items-center justify-content-center" style="width:64px;height:48px"><i class="bi bi-car-front text-muted"></i></div>
+                {% endif %}
+              </td>
+              <td>{{ car.display_name }}<br><small class="text-muted">{{ car.year }}</small></td>
+              <td><code>{{ car.license_plate }}</code></td>
+              <td>{{ car.get_car_type_display }}</td>
+              <td>${{ car.daily_rate }}/day</td>
+              <td>
+                {% if car.is_available %}<span class="badge bg-success">Available</span>
+                {% else %}<span class="badge bg-secondary">Hidden</span>{% endif %}
+              </td>
+              <td class="text-end">
+                <a class="btn btn-sm btn-outline-dark" href="{% url 'cars:owner_car_edit' car.pk %}">Edit</a>
+                <a class="btn btn-sm btn-outline-danger" href="{% url 'cars:owner_car_delete' car.pk %}">Delete</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="text-center text-muted py-5">
+      <i class="bi bi-car-front" style="font-size:3rem"></i>
+      <p class="mt-2">You haven't listed any cars yet.</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

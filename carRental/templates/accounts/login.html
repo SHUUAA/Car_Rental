@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Log in — DriveAway{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width:480px">
+  <div class="card shadow-sm">
+    <div class="card-body p-4">
+      <h3 class="card-title mb-4">Log in</h3>
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {% if form.errors %}
+          <div class="alert alert-danger">Invalid username or password.</div>
+        {% endif %}
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input class="form-control" type="text" name="username" required autofocus>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input class="form-control" type="password" name="password" required>
+        </div>
+        <button class="btn btn-dark w-100">Log in</button>
+        <div class="text-center mt-3 small text-muted">
+          New here? <a href="{% url 'register' %}">Create an account</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

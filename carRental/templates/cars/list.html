@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Browse cars — DriveAway{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2 class="mb-4">Browse cars</h2>
+
+  <form class="row g-2 mb-4" method="get">
+    <div class="col-md-4">
+      <input class="form-control" type="search" name="q" value="{{ filters.q }}" placeholder="Brand or model">
+    </div>
+    <div class="col-md-2">
+      <select class="form-select" name="type">
+        <option value="">Any type</option>
+        {% for v, label in type_choices %}
+          <option value="{{ v }}" {% if filters.type == v %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <select class="form-select" name="transmission">
+        <option value="">Any trans.</option>
+        {% for v, label in transmission_choices %}
+          <option value="{{ v }}" {% if filters.transmission == v %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <input class="form-control" type="number" name="max_price" value="{{ filters.max_price }}" placeholder="Max $/day">
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-dark w-100">Filter</button>
+    </div>
+  </form>
+
+  <div class="row g-4">
+    {% for car in cars %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          {% if car.image %}
+            <img src="{{ car.image }}" class="card-img-top car-thumb" alt="{{ car.display_name }}">
+          {% else %}
+            <div class="car-thumb bg-light d-flex align-items-center justify-content-center text-muted">
+              <i class="bi bi-car-front" style="font-size:3rem"></i>
+            </div>
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title mb-1">{{ car.display_name }}</h5>
+            <div class="text-muted small mb-2">
+              {{ car.year }} · {{ car.get_car_type_display }} ·
+              {{ car.get_transmission_display }} · {{ car.seats }} seats
+            </div>
+            <div class="fw-bold">${{ car.daily_rate }}<span class="text-muted small">/day</span></div>
+          </div>
+          <div class="card-footer bg-white">
+            <a href="{% url 'cars:detail' car.pk %}" class="btn btn-dark w-100">View</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-12 text-center text-muted py-5">
+        <p>No cars match your filters.</p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign up — DriveAway{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width:640px">
+  <div class="card shadow-sm">
+    <div class="card-body p-4">
+      <h3 class="card-title mb-4">Create your account</h3>
+      <form method="post" novalidate>
+        {% csrf_token %}
+
+        <div class="mb-3">
+          <label class="form-label d-block">I want to:</label>
+          <div class="btn-group w-100" role="group">
+            {% for radio in form.role %}
+              <input type="radio" class="btn-check" name="role" id="r-{{ forloop.counter }}"
+                     value="{{ radio.choice_value }}" autocomplete="off"
+                     {% if radio.data.selected %}checked{% endif %} required>
+              <label class="btn btn-outline-dark" for="r-{{ forloop.counter }}">
+                {{ radio.choice_label }}
+              </label>
+            {% endfor %}
+          </div>
+          {{ form.role.errors }}
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">First name</label>
+            {{ form.first_name }}
+            {{ form.first_name.errors }}
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Last name</label>
+            {{ form.last_name }}
+            {{ form.last_name.errors }}
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          {{ form.username }}
+          {{ form.username.errors }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          {{ form.email }}
+          {{ form.email.errors }}
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Phone</label>
+            {{ form.phone }}
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">City</label>
+            {{ form.city }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Password</label>
+            {{ form.password1 }}
+            {{ form.password1.errors }}
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Confirm password</label>
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+          </div>
+        </div>
+        <button class="btn btn-warning w-100">Create account</button>
+        <div class="text-center mt-3 small text-muted">
+          Already have an account? <a href="{% url 'login' %}">Log in</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('form input, form select').forEach(el => {
+    if (el.type !== 'radio' && el.type !== 'checkbox') el.classList.add('form-control');
+  });
+</script>
+{% endblock %}

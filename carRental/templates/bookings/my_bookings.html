@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2 class="mb-4">My bookings</h2>
+  {% if bookings %}
+    <div class="row g-3">
+      {% for b in bookings %}
+        <div class="col-12">
+          <div class="card shadow-sm">
+            <div class="card-body d-flex flex-wrap align-items-center gap-3">
+              {% if b.car.image %}
+                <img src="{{ b.car.image }}" class="rounded" style="width:120px;height:80px;object-fit:cover">
+              {% else %}
+                <div class="rounded bg-light d-flex align-items-center justify-content-center" style="width:120px;height:80px"><i class="bi bi-car-front text-muted"></i></div>
+              {% endif %}
+              <div class="flex-grow-1">
+                <h5 class="mb-1">{{ b.car.display_name }}</h5>
+                <div class="text-muted small">{{ b.start_date }} → {{ b.end_date }} ({{ b.days }} days)</div>
+                <div class="fw-bold mt-1">Total: ${{ b.total_cost }}</div>
+              </div>
+              <div class="text-end">
+                {% if b.status == 'pending' %}
+                  <span class="badge bg-warning text-dark mb-2 d-block">Awaiting payment</span>
+                  <a class="btn btn-sm btn-warning" href="{% url 'bookings:pay' b.pk %}">Pay now</a>
+                {% elif b.status == 'confirmed' %}
+                  <span class="badge bg-success">Confirmed</span>
+                {% elif b.status == 'completed' %}
+                  <span class="badge bg-secondary mb-2 d-block">Completed</span>
+                  {% if not b.review %}
+                    <a class="btn btn-sm btn-outline-dark" href="{% url 'bookings:review' b.pk %}">Leave review</a>
+                  {% endif %}
+                {% else %}
+                  <span class="badge bg-danger">Cancelled</span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="text-center text-muted py-5">
+      <p>You haven't booked anything yet.</p>
+      <a href="{% url 'cars:list' %}" class="btn btn-warning">Browse cars</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

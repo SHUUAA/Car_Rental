@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="max-width:720px">
+  <h2 class="mb-4">{% if mode == 'edit' %}Edit{% else %}Add new{% endif %} car</h2>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Brand</label>
+        {{ form.brand }} {{ form.brand.errors }}
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Model</label>
+        {{ form.model }} {{ form.model.errors }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <label class="form-label">Year</label>
+        {{ form.year }} {{ form.year.errors }}
+      </div>
+      <div class="col-md-3 mb-3">
+        <label class="form-label">Type</label>
+        {{ form.car_type }}
+      </div>
+      <div class="col-md-3 mb-3">
+        <label class="form-label">Transmission</label>
+        {{ form.transmission }}
+      </div>
+      <div class="col-md-3 mb-3">
+        <label class="form-label">Fuel</label>
+        {{ form.fuel }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <label class="form-label">Seats</label>
+        {{ form.seats }}
+      </div>
+      <div class="col-md-5 mb-3">
+        <label class="form-label">License plate</label>
+        {{ form.license_plate }} {{ form.license_plate.errors }}
+      </div>
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Daily rate ($)</label>
+        {{ form.daily_rate }} {{ form.daily_rate.errors }}
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Image URL</label>
+      {{ form.image }}
+      <small class="text-muted">Paste a URL to a hosted image.</small>
+    </div>
+    <div class="form-check mb-4">
+      {{ form.is_available }}
+      <label class="form-check-label">Available for booking</label>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button class="btn btn-warning">{% if mode == 'edit' %}Save{% else %}List car{% endif %}</button>
+      <a class="btn btn-outline-dark" href="{% url 'cars:owner_cars' %}">Cancel</a>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.querySelectorAll('form input[type=text], form input[type=number], form input[type=url], form select')
+    .forEach(el => el.classList.add('form-control'));
+  document.querySelectorAll('form select').forEach(el => { el.classList.remove('form-control'); el.classList.add('form-select'); });
+  document.querySelectorAll('form input[type=checkbox]').forEach(el => el.classList.add('form-check-input'));
+</script>
+{% endblock %}

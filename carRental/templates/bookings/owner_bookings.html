@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2 class="mb-4">Bookings on my cars</h2>
+  {% if bookings %}
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr><th>Car</th><th>Customer</th><th>Dates</th><th>Total</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          {% for b in bookings %}
+            <tr>
+              <td>{{ b.car.display_name }}</td>
+              <td>{{ b.customer.get_full_name|default:b.customer.username }}</td>
+              <td>{{ b.start_date }} → {{ b.end_date }}</td>
+              <td>${{ b.total_cost }}</td>
+              <td>
+                {% if b.status == 'pending' %}<span class="badge bg-warning text-dark">Pending</span>
+                {% elif b.status == 'confirmed' %}<span class="badge bg-success">Confirmed</span>
+                {% elif b.status == 'completed' %}<span class="badge bg-secondary">Completed</span>
+                {% else %}<span class="badge bg-danger">Cancelled</span>{% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-muted">No bookings yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

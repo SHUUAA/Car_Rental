@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="max-width:560px">
+  <h2 class="mb-4">Review your rental</h2>
+  <p class="text-muted">{{ booking.car.display_name }} · {{ booking.start_date }} → {{ booking.end_date }}</p>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">Rating (1-5)</label>
+      {{ form.rating }}
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Comment</label>
+      {{ form.comment }}
+    </div>
+    <button class="btn btn-warning">Submit review</button>
+  </form>
+</div>
+
+<script>
+  document.querySelectorAll('form input[type=number], form textarea')
+    .forEach(el => el.classList.add('form-control'));
+</script>
+{% endblock %}

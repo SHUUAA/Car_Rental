@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ car.display_name }} — DriveAway{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row g-4">
+    <div class="col-lg-7">
+      {% if car.image %}
+        <img src="{{ car.image }}" class="img-fluid rounded shadow-sm" alt="{{ car.display_name }}">
+      {% else %}
+        <div class="rounded bg-light d-flex align-items-center justify-content-center text-muted" style="height:360px">
+          <i class="bi bi-car-front" style="font-size:5rem"></i>
+        </div>
+      {% endif %}
+      <h2 class="mt-4">{{ car.display_name }}</h2>
+      <p class="text-muted">{{ car.year }} · listed by {{ car.owner.get_full_name|default:car.owner.username }}</p>
+
+      <div class="row mt-3">
+        <div class="col-6 col-md-3 mb-2"><i class="bi bi-gear"></i> {{ car.get_transmission_display }}</div>
+        <div class="col-6 col-md-3 mb-2"><i class="bi bi-fuel-pump"></i> {{ car.get_fuel_display }}</div>
+        <div class="col-6 col-md-3 mb-2"><i class="bi bi-people"></i> {{ car.seats }} seats</div>
+        <div class="col-6 col-md-3 mb-2"><i class="bi bi-tag"></i> {{ car.get_car_type_display }}</div>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card shadow-sm sticky-top" style="top:80px">
+        <div class="card-body">
+          <div class="d-flex align-items-baseline mb-3">
+            <h3 class="mb-0">${{ car.daily_rate }}</h3>
+            <span class="text-muted ms-1">/day</span>
+          </div>
+          {% if user.is_authenticated and user.profile.is_customer %}
+            <a href="{% url 'bookings:new' car.pk %}" class="btn btn-warning w-100 btn-lg">Book now</a>
+          {% elif user.is_authenticated %}
+            <p class="text-muted small">Bookings are for customer accounts.</p>
+          {% else %}
+            <a href="{% url 'login' %}" class="btn btn-warning w-100 btn-lg">Log in to book</a>
+          {% endif %}
+          <p class="text-muted small mt-3 mb-0">License plate: <strong>{{ car.license_plate }}</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
